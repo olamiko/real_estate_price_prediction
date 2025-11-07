@@ -1,2 +1,2 @@
-# tip_prediction
-A model for predicting how much tip is given based on a kaggle dataset
+# real_estate_price_prediction
+A model for predicting how the price of a house based on a kaggle dataset
