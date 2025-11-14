@@ -15,7 +15,7 @@ from sklearn.linear_model import LinearRegression
 # Dataset gotten from 
 # https://www.kaggle.com/api/v1/datasets/download/wardabilal/real-estate-price-insights
 
-df = pd.read_csv('housing_price_data.csv')
+df = pd.read_csv("../datasets/housing_price_data.csv")
 df.isna().sum()
 df.dtypes
 
@@ -169,7 +169,7 @@ pipeline.fit(dicts_full_train, y_full_train)
 y_pred = pipeline.predict(dicts_test)
 print("The RMSE for final XGB Regression Model is: ", rmse(y_test, y_pred))
 
-output_file = 'pipeline.bin'
+output_file = 'models/pipeline.bin'
 
 with open(output_file, 'wb') as f_out:
     pickle.dump(pipeline, f_out)

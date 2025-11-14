@@ -6,7 +6,7 @@ import numpy as np
 
 app = FastAPI(title="housing-price-prediction")
 
-with open('pipeline.bin', 'rb') as f_in:
+with open('models/pipeline.bin', 'rb') as f_in:
     pipeline = pickle.load(f_in)
 
 @app.post("/predict")
