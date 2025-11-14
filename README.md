@@ -45,12 +45,22 @@ The model is deployed as a FastAPI application and as a docker container.
 The file called `predict.py` contains the core logic of web service. 
 The app itself is served using uvicorn.
 
+**Run Model training:** 
+
+Install [UV](https://docs.astral.sh/uv/getting-started/installation/#standalone-installer) 
+
+```
+uv sync --locked
+cd src/
+uv run train.py
+```
 
 **Run FastAPI application:** 
 
 Install [UV](https://docs.astral.sh/uv/getting-started/installation/#standalone-installer) 
 
 ```
+cd src/
 uv sync --locked
 uv run uvicorn --bind 0.0.0.0:9696 predict:app
 ```
