@@ -60,8 +60,8 @@ uv run train.py
 Install [UV](https://docs.astral.sh/uv/getting-started/installation/#standalone-installer) 
 
 ```
-cd src/
 uv sync --locked
+cd src/
 uv run uvicorn --bind 0.0.0.0:9696 predict:app
 ```
 
@@ -77,5 +77,7 @@ docker run -it --rm -p 9696:9696 real-estate-price-prediction
 
 A test script is provided. Modify as needed:
 ```
+uv sync --locked
+cd src/
 uv run test-service.py
 ```
