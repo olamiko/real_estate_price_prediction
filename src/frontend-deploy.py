@@ -87,8 +87,8 @@ with st.sidebar:
 # -----------------------------
 # Tabs: Single Prediction | Batch Upload
 # -----------------------------
-# tab1, tab2 = st.tabs(["Single Prediction", "Batch Prediction (CSV)"])
-tab1 = st.tabs(["Single Prediction"])
+tab1, tab2 = st.tabs(["Single Prediction", "Batch Prediction (CSV)"])
+# tab1 = st.tabs(["Single Prediction"])
 
 # ================================
 # TAB 1: Single Prediction
