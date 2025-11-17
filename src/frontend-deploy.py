@@ -4,166 +4,169 @@ import pickle
 import os
 import numpy as np
 
-# -----------------------------
-# Page Config & Styling
-# -----------------------------
+# =============================
+# Page Config & Beautiful Styling
+# =============================
 st.set_page_config(
     page_title="Real Estate Price Predictor",
     page_icon="house",
     layout="centered",
-    initial_sidebar_state="auto"
+    initial_sidebar_state="collapsed"
 )
 
-# Custom CSS for a premium look
+# Custom CSS for a premium feel
 st.markdown("""
 <style>
-    .main-title {
-        font-size: 3rem;
-        font-weight: 700;
+    .big-title {
+        font-size: 3.2rem;
+        font-weight: 800;
         text-align: center;
-        color: #1E40AF;
+        background: linear-gradient(90deg, #1E40AF, #3B82F6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
         margin-bottom: 0.5rem;
     }
     .subtitle {
         text-align: center;
-        color: #64748B;
-        font-size: 1.2rem;
+        color: #475569;
+        font-size: 1.25rem;
         margin-bottom: 2rem;
     }
-    .prediction-result {
-        padding: 1.5rem;
-        border-radius: 12px;
-        background: linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%);
-        border-left: 6px solid #3B82F6;
+    .prediction-box {
+        padding: 2rem;
+        border-radius: 16px;
+        background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+        border-left: 8px solid #3b82f6;
         text-align: center;
-        font-size: 2.2rem;
+        font-size: 3rem;
         font-weight: bold;
-        color: #1E40AF;
-        margin: 20px 0;
+        color: #1e40af;
+        margin: 30px 0;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     }
     .stButton > button {
-        background-color: #3B82F6;
+        background: linear-gradient(90deg, #3b82f6, #2563eb);
         color: white;
         font-weight: bold;
-        border-radius: 10px;
-        height: 3.2em;
-        width: 100%;
         font-size: 1.1rem;
+        height: 3.5rem;
+        border-radius: 12px;
+        border: none;
+        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
     }
-    .footer {
-        text-align: center;
-        margin-top: 4rem;
-        color: #94A3B8;
-        font-size: 0.9rem;
+    .stButton > button:hover {
+        background: linear-gradient(90deg, #2563eb, #1d4ed8);
+        transform: translateY(-2px);
     }
 </style>
 """, unsafe_allow_html=True)
 
-# -----------------------------
+# =============================
 # Header
-# -----------------------------
-st.markdown('<h1 class="main-title">House Price Predictor</h1>', unsafe_allow_html=True)
-st.markdown('<p class="subtitle">Get accurate price estimates in seconds using machine learning</p>', unsafe_allow_html=True)
+# =============================
+st.markdown('<h1 class="big-title">House Price Prediction</h1>', unsafe_allow_html=True)
+st.markdown('<p class="subtitle">Enter property details below to get an instant AI-powered price estimate</p>', unsafe_allow_html=True)
 
-# -----------------------------
+# =============================
 # Load Model
-# -----------------------------
+# =============================
 @st.cache_resource(show_spinner="Loading AI model...")
 def load_model():
     model_path = "src/models/pipeline.bin"
     if not os.path.exists(model_path):
-        st.error(f"Model not found at `{model_path}`")
+        st.error("Model file not found!")
+        st.write(f"Expected: `{model_path}`")
         st.write(f"Current directory: `{os.getcwd()}`")
         st.stop()
     with open(model_path, "rb") as f:
         pipeline = pickle.load(f)
     return pipeline
 
-with st.spinner("Initializing model..."):
-    pipeline = load_model()
-
+pipeline = load_model()
 st.success("Model loaded successfully!")
 
-# -----------------------------
-# Input Form
-# -----------------------------
-st.markdown("### Enter House Details")
+# =============================
+# User Input Form
+# =============================
+with st.form("house_form", clear_on_submit=True):
+    st.markdown("### Property Features")
 
-with st.form("prediction_form", clear_on_submit=True):
     col1, col2 = st.columns(2)
 
     with col1:
-        st.number_input("Area (sq ft)", min_value=1000, max_value=30000, value=5500, step=50,
-                        help="Total land area in square feet")
+        st.number_input("Area (sq ft)", min_value=1000, max_value=50000, value=5500, step=100, help="Total built-up area")
         st.number_input("Bedrooms", min_value=1, max_value=10, value=3)
         st.number_input("Bathrooms", min_value=1, max_value=8, value=2)
         st.number_input("Stories", min_value=1, max_value=4, value=2)
-        st.number_input("Parking Spaces", min_value=0, max_value=5, value=1)
+        st.number_input("Parking spaces", min_value=0, max_value=5, value=1)
 
     with col2:
-        st.selectbox("Connected to Main Road", options=["yes", "no"], index=0)
-        st.selectbox("Guest Room", options=["no", "yes"], index=0)
-        st.selectbox("Basement", options=["no", "yes"], index=0)
-        st.selectbox("Hot Water Heating", options=["no", "yes"], index=0)
-        st.selectbox("Air Conditioning", options=["yes", "no"], index=0)
-        st.selectbox("Preferred / Prime Area", options=["no", "yes"], index=0)
-        st.selectbox("Furnishing Status", 
-                     options=["unfurnished", "semi-furnished", "furnished"],
-                     index=1)
+        mainroad = st.selectbox("Main road access", options=["yes", "no"], index=0)
+        guestroom = st.selectbox("Guest room", options=["no", "yes"], index=0)
+        basement = st.selectbox("Basement", options=["no", "yes"], index=0)
+        hotwaterheating = st.selectbox("Hot water heating", options=["no", "yes"], index=0)
+        airconditioning = st.selectbox("Air conditioning", options=["yes", "no"], index=0)
+        prefarea = st.selectbox("Preferred area", options=["no", "yes"], index=0)
+        furnishingstatus = st.selectbox(
+            "Furnishing status",
+            options=["unfurnished", "semi-furnished", "furnished"],
+            index=1
+        )
 
-    # Submit button
-    submitted = st.form_submit_button("Predict House Price", use_container_width=True)
+    # Predict Button
+    submitted = st.form_submit_button("Predict Price", use_container_width=True)
 
     if submitted:
-        # Collect all inputs properly
-        input_dict = {
-            "area": col1.number_input("Area (sq ft)"),
-            "bedrooms": col1.number_input("Bedrooms"),
-            "bathrooms": col1.number_input("Bathrooms"),
-            "stories": col1.number_input("Stories"),
-            "mainroad": col2.selectbox("Connected to Main Road").lower(),
-            "guestroom": col2.selectbox("Guest Room").lower(),
-            "basement": col2.selectbox("Basement").lower(),
-            "hotwaterheating": col2.selectbox("Hot Water Heating").lower(),
-            "airconditioning": col2.selectbox("Air Conditioning").lower(),
-            "parking": col1.number_input("Parking Spaces"),
-            "prefarea": col2.selectbox("Preferred / Prime Area").lower(),
-            "furnishingstatus": col2.selectbox("Furnishing Status")
+        # Build input dictionary using the captured variables
+        input_data = {
+            "area": area,
+            "bedrooms": bedrooms,
+            "bathrooms": bathrooms,
+            "stories": stories,
+            "mainroad": mainroad,
+            "guestroom": guestroom,
+            "basement": basement,
+            "hotwaterheating": hotwaterheating,
+            "airconditioning": airconditioning,
+            "parking": parking,
+            "prefarea": prefarea,
+            "furnishingstatus": furnishingstatus
         }
 
-        input_df = pd.DataFrame([input_dict])
+        # Convert to DataFrame (single row)
+        input_df = pd.DataFrame([input_data])
 
-        with st.spinner("Predicting price..."):
+        with st.spinner("Estimating price..."):
             try:
-                # Important: Use np.expm1 if target was log-transformed during training
-                log_pred = pipeline.predict(input_df)[0]
-                predicted_price = np.expm1(log_pred)
-                predicted_price = float(predicted_price)
+                # Prediction with log transform reversal
+                predicted_price = float(np.expm1(pipeline.predict(input_df)[0]))
 
-                # Beautiful result display
+                # Beautiful result
                 st.markdown(f"""
-                <div class="prediction-result">
+                <div class="prediction-box">
                     ${predicted_price:,.0f}
                 </div>
                 """, unsafe_allow_html=True)
 
                 st.balloons()
 
-                # Show input summary
-                with st.expander("View entered details", expanded=False):
-                    display_df = input_df.copy()
-                    display_df.columns = [c.replace("_", " ").title() for c in display_df.columns]
-                    st.dataframe(display_df.T.rename(columns={0: "Your Input"}), use_container_width=True)
+                # Input summary
+                with st.expander("Show entered details", expanded=False):
+                    summary = pd.DataFrame.from_dict(input_data, orient='index', columns=['Value'])
+                    summary.index = summary.index.str.replace('_', ' ').str.title()
+                    st.dataframe(summary, use_container_width=True)
 
             except Exception as e:
-                st.error("Prediction failed. Check model compatibility.")
+                st.error("Prediction failed")
+                st.caption("Check that your model expects the same column names and 'yes'/'no' string format.")
                 st.exception(e)
 
-# -----------------------------
+# =============================
 # Footer
-# -----------------------------
-st.markdown("""
-<div class="footer">
-    Real Estate Price Prediction • Powered by Machine Learning • Model: src/models/pipeline.bin
-</div>
-""", unsafe_allow_html=True)
+# =============================
+st.markdown(
+    "<p style='text-align: center; color: #94a3b8; margin-top: 60px; font-size: 0.9rem;'>"
+    "Real Estate Price Prediction • Powered by Machine Learning • 2025"
+    "</p>",
+    unsafe_allow_html=True
+)
