@@ -94,11 +94,11 @@ with st.form("house_form", clear_on_submit=True):
     col1, col2 = st.columns(2)
 
     with col1:
-        st.number_input("Area (sq ft)", min_value=1000, max_value=50000, value=5500, step=100, help="Total built-up area")
-        st.number_input("Bedrooms", min_value=1, max_value=10, value=3)
-        st.number_input("Bathrooms", min_value=1, max_value=8, value=2)
-        st.number_input("Stories", min_value=1, max_value=4, value=2)
-        st.number_input("Parking spaces", min_value=0, max_value=5, value=1)
+        area = st.number_input("Area (sq ft)", min_value=1000, max_value=50000, value=5500, step=100, help="Total built-up area")
+        bedrooms = st.number_input("Bedrooms", min_value=1, max_value=10, value=3)
+        bathrooms = st.number_input("Bathrooms", min_value=1, max_value=8, value=2)
+        stories = st.number_input("Stories", min_value=1, max_value=4, value=2)
+        parking = st.number_input("Parking spaces", min_value=0, max_value=5, value=1)
 
     with col2:
         mainroad = st.selectbox("Main road access", options=["yes", "no"], index=0)
