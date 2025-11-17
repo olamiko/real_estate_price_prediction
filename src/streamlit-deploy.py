@@ -63,15 +63,15 @@ with st.form("house_form"):
             "area": area,
             "bedrooms": bedrooms,
             "bathrooms": bathrooms,
-            "stories": [stories],
-            "mainroad": [mainroad],
-            "guestroom": [guestroom],
-            "basement": [basement],
-            "hotwaterheating": [hotwaterheating],
-            "airconditioning": [airconditioning],
-            "parking": [parking],
-            "prefarea": [prefarea],
-            "furnishingstatus": [furnishingstatus]
+            "stories": stories,
+            "mainroad": mainroad,
+            "guestroom": guestroom,
+            "basement": basement,
+            "hotwaterheating": hotwaterheating,
+            "airconditioning": airconditioning,
+            "parking": parking,
+            "prefarea": prefarea,
+            "furnishingstatus": furnishingstatus
         }
         
         st.write(input_data)
