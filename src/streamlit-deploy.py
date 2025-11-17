@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import pickle
 import os
+import numpy as np
 
 # -----------------------------
 # Configuration
@@ -77,8 +78,8 @@ with st.form("house_form"):
 
         # Prediction
         try:
-            prediction = pipeline.predict(df)[0]
-            prediction = round(prediction, 2)
+            prediction = np.expm1(pipeline.predict(df)[0])
+            prediction = float(result[0])}
 
             st.success(f"### Predicted House Price: **${prediction:,.2f}**")
 
