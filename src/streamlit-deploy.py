@@ -8,7 +8,7 @@ import numpy as np
 # Configuration
 # -----------------------------
 st.set_page_config(
-    page_title="House Price Predictor",
+    page_title="Real Estate Price Predictor",
     page_icon="🏠",
     layout="centered"
 )
