@@ -127,20 +127,20 @@ with tab1:
 
         if submitted:
             # Prepare input
-            data = {
-                "area": [st.session_state.get("area", 5000)] if "area" not in st.session_state else [st.form_data.area],
-                "bedrooms": [col1.number_input("Bedrooms").value],
-                "bathrooms": [col1.number_input("Bathrooms").value],
-                "stories": [col2.number_input("Stories").value],
-                "mainroad": [col1.selectbox("Main Road").lower()],
-                "guestroom": [col3.selectbox("Guest Room").lower()],
-                "basement": [col4.selectbox("Basement").lower()],
-                "hotwaterheating": [col4.selectbox("Hot Water Heating").lower()],
-                "airconditioning": [col2.selectbox("Air Conditioning").lower()],
-                "parking": [col2.number_input("Parking Spaces").value],
-                "prefarea": [col2.selectbox("Preferred Area").lower()],
-                "furnishingstatus": [col4.selectbox("Furnishing Status")]
-            }
+            # data = {
+            #     "area": [st.session_state.get("area", 5000)] if "area" not in st.session_state else [st.form_data.area],
+            #     "bedrooms": [col1.number_input("Bedrooms").value],
+            #     "bathrooms": [col1.number_input("Bathrooms").value],
+            #     "stories": [col2.number_input("Stories").value],
+            #     "mainroad": [col1.selectbox("Main Road").lower()],
+            #     "guestroom": [col3.selectbox("Guest Room").lower()],
+            #     "basement": [col4.selectbox("Basement").lower()],
+            #     "hotwaterheating": [col4.selectbox("Hot Water Heating").lower()],
+            #     "airconditioning": [col2.selectbox("Air Conditioning").lower()],
+            #     "parking": [col2.number_input("Parking Spaces").value],
+            #     "prefarea": [col2.selectbox("Preferred Area").lower()],
+            #     "furnishingstatus": [col4.selectbox("Furnishing Status")]
+            # }
             
             # Better way: use form context
             # input_df = pd.DataFrame({
