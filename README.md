@@ -93,6 +93,6 @@ uv run test-service.py
 ---
 ## Cloud Deployment
 
-The application is deployed at (Real Estate Price Predictor)[https://realestatepriceprediction-vyfmoynulagmvqioxgrsgz.streamlit.app/] using streamlit
+The application is deployed at [Real Estate Price Predictor](https://realestatepriceprediction-vyfmoynulagmvqioxgrsgz.streamlit.app/) using streamlit
 
 Local environment is managed with `UV` and this leads to some hacks if `streamlit` is to be run locally. So it is best to use github codespaces or use the Streamlit Community Cloud
