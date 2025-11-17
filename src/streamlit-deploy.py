@@ -60,9 +60,9 @@ with st.form("house_form"):
     if submitted:
         # Create input DataFrame exactly matching training columns
         input_data = {
-            "area": [area],
-            "bedrooms": [bedrooms],
-            "bathrooms": [bathrooms],
+            "area": area,
+            "bedrooms": bedrooms,
+            "bathrooms": bathrooms,
             "stories": [stories],
             "mainroad": [mainroad],
             "guestroom": [guestroom],
