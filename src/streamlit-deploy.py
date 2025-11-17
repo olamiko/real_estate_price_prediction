@@ -75,11 +75,11 @@ with st.form("house_form"):
         }
         
         df = pd.DataFrame(input_data)
-
+        
         # Prediction
         try:
             prediction = np.expm1(pipeline.predict(df)[0])
-            prediction = float(result[0])
+            prediction = float(prediction)
             st.write(prediction)
             st.success(f"### Predicted House Price: **${prediction:,.2f}**")
 
