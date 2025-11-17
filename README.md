@@ -39,11 +39,12 @@ kaggle datasets download -d wardabilal/real-estate-price-insights -p data/raw --
 ```
 
 ---
-## Deployment And Containerization
+## Model Training
 
-The model is deployed as a FastAPI application and as a docker container. 
-The file called `predict.py` contains the core logic of web service. 
-The app itself is served using uvicorn.
+Two models were trained on the dataset. 
+We tested linear regression and XGBoost regression. 
+Linear regression produced good results but XGBoost out-performed it with the tuning of parameters.
+We evaluated the predictions from linear regression and XGBoost using RMSE.
 
 **Run Model training:** 
 
@@ -54,6 +55,13 @@ uv sync --locked
 cd src/
 uv run train.py
 ```
+
+---
+## Deployment And Containerization
+
+The model is deployed as a FastAPI application and as a docker container. 
+The file called `predict.py` contains the core logic of web service. 
+The app itself is served using uvicorn.
 
 **Run FastAPI application:** 
 
@@ -81,3 +89,10 @@ uv sync --locked
 cd src/
 uv run test-service.py
 ```
+
+---
+## Cloud Deployment
+
+The application is deployed at (Real Estate Price Predictor)[https://realestatepriceprediction-vyfmoynulagmvqioxgrsgz.streamlit.app/] using streamlit
+
+Local environment is managed with `UV` and this leads to some hacks if `streamlit` is to be run locally. So it is best to use github codespaces or use the Streamlit Community Cloud
