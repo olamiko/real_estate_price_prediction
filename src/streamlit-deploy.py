@@ -74,8 +74,7 @@ with st.form("house_form"):
             "furnishingstatus": [furnishingstatus]
         }
         
-        # df = pd.DataFrame(input_data)
-        
+        st.write(input_data)
         # Prediction
         try:
             prediction = np.expm1(pipeline.predict(input_data)[0])
