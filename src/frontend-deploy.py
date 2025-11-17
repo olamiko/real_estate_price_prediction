@@ -134,12 +134,12 @@ with st.form("house_form", clear_on_submit=True):
         }
 
         # Convert to DataFrame (single row)
-        input_df = pd.DataFrame([input_data])
+        # input_df = pd.DataFrame([input_data])
 
         with st.spinner("Estimating price..."):
             try:
                 # Prediction with log transform reversal
-                predicted_price = float(np.expm1(pipeline.predict(input_df)[0]))
+                predicted_price = float(np.expm1(pipeline.predict(input_data)[0]))
 
                 # Beautiful result
                 st.markdown(f"""
