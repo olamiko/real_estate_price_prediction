@@ -74,7 +74,6 @@ with st.form("house_form"):
             "furnishingstatus": furnishingstatus
         }
         
-        st.write(input_data)
         # Prediction
         try:
             prediction = np.expm1(pipeline.predict(input_data)[0])
@@ -84,7 +83,7 @@ with st.form("house_form"):
 
             # Optional: Show input summary
             with st.expander("View input details"):
-                st.write(df.T.rename(columns={0: "Value"}))
+                st.write(input_data)
 
         except Exception as e:
             st.error(f"Error during prediction: {str(e)}")
