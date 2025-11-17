@@ -20,6 +20,7 @@ st.markdown("Enter the details of the house to get an estimated price.")
 def load_model():
     model_path = "models/pipeline.bin"
     if not os.path.exists(model_path):
+        st.write(f"Current working directory: {os.getcwd()}")
         st.error(f"Model file not found at {model_path}")
         st.stop()
     with open(model_path, "rb") as f:
